@@ -94,6 +94,12 @@ input:-webkit-autofill {
       transform: scaleY(0.7)
     }
   }
+  .border-t-1px{
+    &::after{
+      -webkit-transform: scaleY(0.7);
+      transform: scaleY(0.7)
+    }
+  }
   .border-tb{
     &::before{
       -webkit-transform: scaleY(0.7);
@@ -114,6 +120,12 @@ input:-webkit-autofill {
       transform: scaleY(0.5)
     }
   }
+  .border-t-1px{
+    &::after{
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5)
+    }
+  }
   .border-tb{
     &::before{
       -webkit-transform: scaleY(0.5);
@@ -128,6 +140,12 @@ input:-webkit-autofill {
 
 @media (-webkit-min-device-pixel-ratio: 3),(min-device-pixel-ratio: 3){
   .border-1px{
+    &::after{
+      -webkit-transform: scaleY(0.33334);
+      transform: scaleY(0.33334)
+    }
+  }
+  .border-t-1px{
     &::after{
       -webkit-transform: scaleY(0.33334);
       transform: scaleY(0.33334)

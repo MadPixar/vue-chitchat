@@ -1,0 +1,1 @@
+export const CHANGE_TITLE = 'CHANGE_TITLE';  // 更改标题

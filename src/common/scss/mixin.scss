@@ -1,5 +1,6 @@
 $color-w: #FFF    !default;   // 
-$color-g: #F4F4F6    !default;   // 
+$color-g: #F4F4F6    !default;   // 主题灰色
+$color-l: #12B7F5    !default;   // 主题蓝色
 $color-b: #2E2C6B    !default;   // 
 $backgroundColor: #0398FF   !default;   // 
 
@@ -21,6 +22,19 @@ $backgroundColor: #0398FF   !default;   //
     position: absolute;
     left: 0;
     bottom: 0;
+    width: 100%;
+    border-top: 1px solid $color;
+    content: ' '
+  }
+}
+
+@mixin border-t-1px($color){
+  position: relative;
+  &:after{
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     border-top: 1px solid $color;
     content: ' '
