@@ -23,16 +23,17 @@
     name: 'FooterTab',
     data() {
       return {
-        activeTab: 'message'
+        activeTab: 'message',
+        tabType: ['message','friends','discover']
       }
     },
     computed:{
       icon() {
-        if(this.activeTab === 'message') {
+        if(this.activeTab === this.tabType[0]) {
           return ['chat_bubble','person_outline','star_border'];
-        }else if(this.activeTab === 'friends') {
+        }else if(this.activeTab === this.tabType[1]) {
           return ['chat_bubble_outline','person','star_border'];
-        }else if(this.activeTab === 'discover') {
+        }else if(this.activeTab === this.tabType[2]) {
           return ['chat_bubble_outline','person_outline','star'];
         }
       }
@@ -46,12 +47,12 @@
         // 路由跳转至当前点击的页面
         this.$router.push(val);
         // 改变title
-        if(val === 'message'){
+        if(val === this.tabType[0]){
           num = 0;
-        }else if(val === 'friends') {
+        }else if(val === this.tabType[1]) {
           text = '联系人';
           num = 1;
-        }else if(val === 'discover') {
+        }else if(val === this.tabType[2]) {
           text = '动态';
           num = 1;
         }

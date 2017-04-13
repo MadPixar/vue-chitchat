@@ -7,6 +7,7 @@ Vue.use(Router)
 import Message from '@/components/Message/Message';
 import Friends from '@/components/Friends/Friends';
 import Discover from '@/components/Discover/Discover';
+import Voip from '@/components/Voip/Voip';
 
 export default new Router({
 	mode: 'history',
@@ -18,6 +19,10 @@ export default new Router({
 		name: 'Message',
 		component: Message
 	},{
+		path: '/voip',
+		name: 'Voip',
+		component: Voip
+	},{
 		path: '/friends',
 		name: 'Friends',
 		component: Friends
@@ -25,5 +30,6 @@ export default new Router({
 		path: '/discover',
 		name: 'Discover',
 		component: Discover
-	}]
+	}],
+	linkActiveClass: 'current'
 })

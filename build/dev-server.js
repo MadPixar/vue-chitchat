@@ -21,6 +21,48 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 var proxyTable = config.dev.proxyTable
 
 var app = express()
+
+// 进行http请求用到的模块
+// const superagent = require('superagent')
+
+// mock假数据
+let appData = require('../mockdata.json')
+let self = appData.self
+let friend = appData.friend
+
+let apiRoutes = express.Router()
+
+apiRoutes.get('/self', (req, res) => {
+  res.json({
+    data:self,
+  })
+})
+apiRoutes.get('/friends', (req, res) => {
+  res.json({
+    data:friend,
+  })
+})
+
+// 聊天机器人api接入
+// apiRoutes.get('/robotapi', (req, res) => {
+//   let response=res
+//   let info = req.query.message
+//   let userid = req.query.id
+//   let key = '069e90c4262243bf964ad95014371384'
+//   superagent.post('http://www.tuling123.com/openapi/api')
+//   .send({info, userid, key})
+//   .end((err,res) => {
+//     if(err){
+//       console.log(err)
+//     }
+//     response.json({
+//       data: res.text
+//     })
+//   })
+// })
+
+app.use('/api',apiRoutes)
+
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

@@ -5,42 +5,43 @@
       <mu-avatar slot="left"
                  :src="avatar"
                  :size="30"
-                 @click="showSidebar_x(true)" />
+                  /><!-- @click="showSidebar_x(true)" -->
   
       <div slot="default" class="title">
         <div class="title-message" v-show="titleType === 0">
-          <span class="title-item" 
-                :class="{'current': CURRENT === 0}"
-                @click="changeCurrent(0)"
-          >消息</span>
-          <span class="title-item" 
-                :class="{'current': CURRENT === 1}"
-                @click="changeCurrent(1)"
-          >电话</span>
+          <router-link class="title-item" 
+               
+                tag="span"
+                to="/message"
+          >消息</router-link>
+          <router-link class="title-item" 
+
+                tag="span"
+                to="/voip"
+          >电话</router-link>
         </div>
         <div class="title-char" v-show="titleType === 1">{{headerTitle}}</div>
       </div>
 
       <mu-icon slot="right"
                value="add"
-               @click="showAdd" />
+                /><!-- @click="showAdd" -->
     </mu-appbar>
   
   </div>
 </template>
 
 <script>
-  const CURRENT = 0;
-  import { mapState, mapMutations } from 'vuex'
+  import { mapState, mapMutations } from 'vuex';
+
   export default {
     name: 'TopNav',
-    data() {
-      return {
-        CURRENT
-      }
-    },
+    // data() {
+    //   return {
+    //   }
+    // },
     computed: mapState({
-      // avatar: state => state.data.self.avatar,
+      avatar: state => state.data.self.avatar,
       headerTitle: 'headerTitle',
       titleType: 'titleType'
     }),
@@ -48,11 +49,7 @@
       // ...mapMutations(['showSidebar', 'showAdd']),
       // showSidebar_x(flag) {
       //   this.showSidebar({ flag })
-      // },
-      changeCurrent(num) {
-        if(num===this.CURRENT) return;
-        this.CURRENT = num;
-      }
+      // }
     }
   }
 </script>
