@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
 
 Vue.use(Router)
 
-import Message from '@/components/Message/Message';
-import Friends from '@/components/Friends/Friends';
-import Discover from '@/components/Discover/Discover';
-import Voip from '@/components/Voip/Voip';
+// 路由组件的懒加载。使用 AMD 风格的 require。
+const Message = r => require(['@/components/Message/Message'], r)
+const Friend = r => require(['@/components/Friend/Friend'], r)
+const Discover = r => require(['@/components/Discover/Discover'], r)
+const Voip = r => require(['@/components/Voip/Voip'], r)
 
 export default new Router({
 	mode: 'history',
@@ -23,9 +23,9 @@ export default new Router({
 		name: 'Voip',
 		component: Voip
 	},{
-		path: '/friends',
-		name: 'Friends',
-		component: Friends
+		path: '/friend',
+		name: 'Friend',
+		component: Friend
 	},{
 		path: '/discover',
 		name: 'Discover',

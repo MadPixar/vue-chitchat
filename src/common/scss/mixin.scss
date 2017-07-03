@@ -1,7 +1,7 @@
 $color-w: #FFF    !default;   // 
 $color-g: #F4F4F6    !default;   // 主题灰色
-$color-l: #12B7F5    !default;   // 主题蓝色
-$color-b: #2E2C6B    !default;   // 
+$color-l: #12B7F5    !default;   // 主题青色
+$color-b: #2196F3    !default;   // 主题蓝色
 $backgroundColor: #0398FF   !default;   // 
 
 
@@ -78,3 +78,6 @@ $backgroundColor: #0398FF   !default;   //
   }
 }
 
+.info .titlefz{
+  font-size: 16px;
+}

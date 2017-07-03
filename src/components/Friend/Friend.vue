@@ -8,7 +8,7 @@
 
   import { mapState, mapMutations } from 'vuex'
   export default {
-    name: 'Friends'
+    name: 'Friend'
   }
 </script>
 

@@ -15,7 +15,18 @@ let state = {
 	// 导航栏标题
   headerTitle: '',
   // 导航栏标题类型
-  titleType: 0
+  titleType: 0,
+  // 侧边栏
+  sidebar: {
+    open: false,
+    docked: true
+  },
+  // 右上角添加
+  add: false,
+  // 用户主页
+  personinfo: false,
+  // 当前被选中或者在聊天中的friend的_id
+  activeId: 0
 }
 
 export default new Vuex.Store({

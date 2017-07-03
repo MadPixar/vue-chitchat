@@ -1,21 +1,23 @@
 <template>
-  <mu-bottom-nav :value="activeTab"
-                 @change="handleChange"
-                 class="bottom-tab">
-  
-    <mu-bottom-nav-item value="message"
-                        title="消息"
-                        :icon="icon[0]" />
-  
-    <mu-bottom-nav-item value="friends"
-                        title="联系人"
-                        :icon="icon[1]" />
-  
-    <mu-bottom-nav-item value="discover"
-                        title="动态"
-                        :icon="icon[2]" />
-  
-  </mu-bottom-nav>
+  <keep-alive>
+    <mu-bottom-nav :value="activeTab"
+                   @change="handleChange"
+                   class="bottom-tab">
+    
+      <mu-bottom-nav-item value="message"
+                          title="消息"
+                          :icon="icon[0]" />
+    
+      <mu-bottom-nav-item value="friend"
+                          title="联系人"
+                          :icon="icon[1]" />
+    
+      <mu-bottom-nav-item value="discover"
+                          title="动态"
+                          :icon="icon[2]" />
+    
+    </mu-bottom-nav>
+  </keep-alive>
 </template>
 
 <script>
@@ -24,7 +26,7 @@
     data() {
       return {
         activeTab: 'message',
-        tabType: ['message','friends','discover']
+        tabType: ['message','friend','discover']
       }
     },
     computed:{
@@ -44,8 +46,8 @@
         let text,num;
         this.activeTab = val;
         console.log()
-        // 路由跳转至当前点击的页面
-        this.$router.push(val);
+        // 路由跳转至当前点击的页面，这里用replace是因为用push的话，回退的时候状态不会切换
+        this.$router.replace(val);
         // 改变title
         if(val === this.tabType[0]){
           num = 0;

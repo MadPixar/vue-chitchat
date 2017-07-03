@@ -5,7 +5,7 @@
       <mu-avatar slot="left"
                  :src="avatar"
                  :size="30"
-                  /><!-- @click="showSidebar_x(true)" -->
+                 @click="showSidebar_x(true)" />
   
       <div slot="default" class="title">
         <div class="title-message" v-show="titleType === 0">
@@ -46,10 +46,10 @@
       titleType: 'titleType'
     }),
     methods: {
-      // ...mapMutations(['showSidebar', 'showAdd']),
-      // showSidebar_x(flag) {
-      //   this.showSidebar({ flag })
-      // }
+      ...mapMutations(['SHOW_SIDEBAR']),
+      showSidebar_x(flag) {
+        this.SHOW_SIDEBAR({ flag })
+      }
     }
   }
 </script>
