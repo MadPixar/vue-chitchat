@@ -6,8 +6,6 @@ import router from './router'
 import axios from 'axios'
 import store from './store/index'
 
-import 'common/scss/index.scss'
-
 Vue.config.productionTip = false
 
 // 加载ui
@@ -16,8 +14,10 @@ import 'muse-ui/dist/muse-ui.css'
 import 'muse-ui/dist/theme-light.css' // 使用 light 主题
 Vue.use(MuseUI)
 
+import 'common/scss/index.scss'
+
 // 在vue原型中添加$http方法等于axios
-Vue.prototype.$http = axios;
+Vue.prototype.$http = axios
 
 // 设置默认打开的页面
 router.replace('message')

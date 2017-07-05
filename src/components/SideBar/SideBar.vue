@@ -74,7 +74,7 @@ export default {
   color: $color-b;
   .content{
     position: relative;
-    height: pxrem(200px);
+    // height: pxrem(200px);
     padding-top: pxrem(94px);
     margin-bottom: 20px;
     background-size: 140%;

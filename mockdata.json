@@ -10,7 +10,31 @@
         "phone": "18607334135",
         "address": "Pennsylvania Avenue, 1036",
         "explain": "教练我想写代码",
-        "about": "Several important experimental fact that poses challenges to the classical theory If a beam of electromagnetic radiation appropriate slot, according to the prediction of the classical wave theory, followed by receiving interference, diffraction pattern will flash on the screen. But if let a bunch of very low intensity electromagnetic irradiation photographic plate, in a certain time interval, the film will only show some irregular small spots. As if the film is shot by a particle at a time! Is this a contradiction? The phenomenon of small specks produced by low-intensity light exposure can still be argued for classical wave theory."
+        "about": "Several important experimental fact that poses challenges to the classical theory If a beam of electromagnetic radiation appropriate slot, according to the prediction of the classical wave theory, followed by receiving interference, diffraction pattern will flash on the screen. But if let a bunch of very low intensity electromagnetic irradiation photographic plate, in a certain time interval, the film will only show some irregular small spots. As if the film is shot by a particle at a time! Is this a contradiction? The phenomenon of small specks produced by low-intensity light exposure can still be argued for classical wave theory.",
+        "moments":[
+            {   "time": 1502294400000,
+                "name": "MadPixar",
+                "avatar": "/static/images/avatar.jpg",
+                "photo":[
+                    {
+                      "url": "/static/images/m21.jpg",
+                      "imgtitle": "海天一色"，
+                      "imgsubtitle": "让人心旷神怡的舒畅"
+                    },
+                    {
+                      "url": "/static/images/m21.jpg",
+                      "imgtitle": "海天一色"，
+                      "imgsubtitle": "让人心旷神怡的舒畅"
+                    },
+                    {
+                      "url": "/static/images/m21.jpg",
+                      "imgtitle": "海天一色"，
+                      "imgsubtitle": "让人心旷神怡的舒畅"
+                    }
+                ],
+                "text": "散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。 调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。 似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光， 找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！"
+            }
+        ]
     },
     "friend": [
         {   "_id": 1,

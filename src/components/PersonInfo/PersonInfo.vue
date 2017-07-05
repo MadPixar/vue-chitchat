@@ -17,87 +17,70 @@
       </mu-appbar>
   
       <div class="mu-middle">
-        <mu-avatar :src="userData.avatar"
-                   :size="96" />
+        <mu-avatar :src="userData.avatar" />
         <span class="name" v-cloak>{{userData.name}}</span>
       </div>
       <mu-tabs :value="activeTab"
                @change="handleTabChange">
-        <mu-tab value="tab1"
+        <mu-tab value="presonInfo"
                 title="个人信息" />
-        <mu-tab value="tab2"
-                title="动态" />
-        <mu-tab value="tab3"
+        <mu-tab value="moments"
+                title="个人动态" />
+        <mu-tab value="photographs"
                 title="照片墙" />
       </mu-tabs>
     </div>
     <div class="content">
-      <div class="tab1" v-if="activeTab === 'tab1'">
-        <div class="item">
-          <mu-list-item title="联系方式"
-                        :describeText="userData.phone"
-                        disabled>
-            <mu-icon value="phone"
-                     color="#2196F3"
-                     slot="left" />
-          </mu-list-item>
-          <mu-divider inset/>
-        </div>
-        <div class="item">
-          <mu-list-item title="邮箱"
-                        :describeText="userData.email"
-                        disabled>
-            <mu-icon value="email"
-                     color="#2196F3"
-                     slot="left" />
-          </mu-list-item>
-          <mu-divider inset/>
-        </div>
-        <div class="item">
-          <mu-list-item title="地址"
-                        :describeText="userData.address"
-                        disabled>
-            <mu-icon value="location_on"
-                     color="#2196F3"
-                     slot="left" />
-          </mu-list-item>
-          <mu-divider inset/>
-        </div>
-        <div class="item">
-          <mu-list-item title="生日"
-                        :describeText="userData.birthday"
-                        disabled>
-            <mu-icon value="cake"
-                     color="#2196F3"
-                     slot="left" />
-          </mu-list-item>
-          <mu-divider inset/>
-        </div>
-      </div>
-      <div class="tab2" v-if="activeTab === 'tab2'">
-        <div class="moments-info" v-for="">
-          <mu-card>
-            <mu-card-header title="Myron Avatar" subTitle="sub title">
-              <mu-avatar src="/images/uicon.jpg" slot="avatar"/>
-            </mu-card-header>
-            <mu-card-media title="Image Title" subTitle="Image Sub Title">
-              <img src="/images/sun.jpg" />
-            </mu-card-media>
-            <mu-card-title title="Content Title" subTitle="Content Title"/>
-            <mu-card-text>
-              散落在指尖的阳光，我试着轻轻抓住光影的踪迹，它却在眉宇间投下一片淡淡的阴影。
-              调皮的阳光掀动了四月的心帘，温暖如约的歌声渐起。
-              似乎在诉说着，我也可以在漆黑的角落里，找到阴影背后的阳光，
-              找到阳光与阴影奏出和谐的旋律。我要用一颗敏感赤诚的心迎接每一缕滑过指尖的阳光！
-            </mu-card-text>
-            <mu-card-actions>
-              <mu-flat-button label="Action 1"/>
-              <mu-flat-button label="Action 2"/>
-            </mu-card-actions>
-          </mu-card>
+      <div class="tab tab1" v-show="activeTab === 'presonInfo'">
+        <div>
+          <div class="item">
+            <mu-list-item title="联系方式"
+                          :describeText="userData.phone"
+                          disabled>
+              <mu-icon value="phone"
+                       color="#2196F3"
+                       slot="left" />
+            </mu-list-item>
+            <mu-divider inset/>
+          </div>
+          <div class="item">
+            <mu-list-item title="邮箱"
+                          :describeText="userData.email"
+                          disabled>
+              <mu-icon value="email"
+                       color="#2196F3"
+                       slot="left" />
+            </mu-list-item>
+            <mu-divider inset/>
+          </div>
+          <div class="item">
+            <mu-list-item title="地址"
+                          :describeText="userData.address"
+                          disabled>
+              <mu-icon value="location_on"
+                       color="#2196F3"
+                       slot="left" />
+            </mu-list-item>
+            <mu-divider inset/>
+          </div>
+          <div class="item">
+            <mu-list-item title="生日"
+                          :describeText="userData.birthday"
+                          disabled>
+              <mu-icon value="cake"
+                       color="#2196F3"
+                       slot="left" />
+            </mu-list-item>
+            <mu-divider inset/>
+          </div>
         </div>
       </div>
-      <div class="tab3" v-if="activeTab === 'tab3'">
+      <div class="tab tab2" v-show="activeTab === 'moments'" ref="tab2Wrapper">
+        <div class="moments-wrapper">
+          <MomentsCard></MomentsCard>
+        </div>
+      </div>
+      <div class="tab tab3" v-show="activeTab === 'photographs'">
         <h1>未完待续....</h1>
       </div>
     </div>
@@ -124,13 +107,37 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters, mapMutations } from 'vuex'
+import { mapState, mapGetters, mapMutations } from 'vuex';
+import MomentsCard from 'components/MomentsCard/MomentsCard';
+import IScroll from 'iscroll';
+const ERROR_OK = 0;
+
 export default {
   name: 'PersonInfo',
   data() {
     return {
-      activeTab: 'tab1'
+      initScroll: false,
+      activeTab: 'presonInfo',
+      horzObj: {}           // 默认单张图片是水平默认80%显示 style默认为空
     }
+  },
+  created(){
+
+  },
+  mounted() {
+    // this.$http.get('/api/goods').then(res =>{
+    //   return res.json();
+    // }).then(json => {
+    //   if(json.errno === ERROR_OK) {
+    //     // this.goods = json.data;
+    //     // console.log(this.goods) 
+    //     this.$nextTick(() => {
+    //       this._initScroll();
+    //       this._calculateHeight();
+    //     })
+    //   }
+    // })
+       
   },
   computed: {
     ...mapState(['activeId', 'data']),
@@ -147,19 +154,33 @@ export default {
   methods: {
     ...mapMutations(['GET_ACTIVEID', 'SHOW_PERSONINFO', 'SHOW_DIALOG']), 
     handleTabChange(val) {
-      this.activeTab = val
+      this.activeTab = val;
+      // 判断是否初始化iscroll，否则就刷新
+      this.$nextTick(() => {
+        if(!this.tab2Scroll) {
+          this.tab2Scroll = new IScroll(this.$refs.tab2Wrapper);
+        }else{
+          this.tab2Scroll.refresh();
+        }
+      })
+    }, 
+    _initScroll() {
+      this.tab2Scroll = new IScroll(this.$refs.tab2Wrapper);
     },
     _showPersonInfo() {
-      this.GET_ACTIVEID({ activeId: 0 })
-      this.SHOW_PERSONINFO()
+      this.GET_ACTIVEID({ activeId: 0 });
+      this.SHOW_PERSONINFO();
     },
     _showDialog() {
       // 判定打开的是不是自己的主页，如果是则屏蔽和自己的对话
       if (this.activeId !== 0) {
-        this.SHOW_DIALOG()
-        this.SHOW_PERSONINFO()
+        this.SHOW_DIALOG();
+        this.SHOW_PERSONINFO();
       }
     }
+  },
+  components: {
+    MomentsCard
   }
 }
 </script>
@@ -173,10 +194,9 @@ export default {
   width: 100%;
   height: 100vh;
   background: #FFF;
-  
   .top {
     position: relative;
-    height: pxrem(254px);
+    height: pxrem(245px);
     background-size: cover;
     &:after {
       position: absolute;
@@ -194,13 +214,15 @@ export default {
       text-align: center;
       .mu-avatar{
         position: relative;
+        width: pxrem(90px);
+        height: pxrem(90px);
         &:after{
           content: '';
           position: absolute;
-          top: -3px;
-          left: -3px;
-          width: 102px;
-          height: 102px;
+          top: pxrem(-3px);
+          left: pxrem(-3px);
+          width: pxrem(96px);
+          height: pxrem(96px);
           background-color: rgba(225,255,255,.7);
           border-radius: 50%;
           z-index: -1;
@@ -232,6 +254,19 @@ export default {
       margin-left: 20px;
     }
   }
+  .tab2{
+    position: absolute;
+    top: pxrem(245px);
+    right: 0;
+    bottom: 52px;
+    left: 0;
+    overflow: hidden;
+    background-color: #E8E8E8;
+    .moments-wrapper{
+      position: absolute;
+      background-color: #E8E8E8;
+    }
+  }
   .bottom {
     @include border-t-1px(#EAEAEA);
     position: absolute;
@@ -240,5 +275,4 @@ export default {
     background: #FAFAFA;
   }
 }
-
 </style>
