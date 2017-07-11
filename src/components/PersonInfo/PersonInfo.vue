@@ -95,7 +95,7 @@
               icon="phone_in_talk"
               :titleClass="`bottom-color bottom-fz`"
               :iconClass="`bottom-color`"
-              title="电话" />
+              title="语音" />
       <mu-tab value="tab3"
               icon="sms"
               :titleClass="`bottom-color bottom-fz`"
@@ -263,6 +263,7 @@ export default {
     overflow: hidden;
     background-color: #E8E8E8;
     .moments-wrapper{
+      width: 100%;
       position: absolute;
       background-color: #E8E8E8;
     }

@@ -23,14 +23,34 @@
   .mu-tab-link{
     min-height: 42px;
   }
-  .mu-card-media-title .mu-card-title{
-    font-size: 18px;
-    line-height: 18px;
-  }
   .mu-card-media-title{
     padding: 8px;
   }
   .icon-small{
     font-size: 16px;
   }
+  
 } 
+
+// 个人动态组件
+.img-one{
+  .mu-card-title{
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .mu-card-sub-title{
+    font-size: 10px
+  }
+}
+.img-two,.img-three{
+  .mu-card-media-title{
+    right: 2px;
+  }
+  .mu-card-title{
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .mu-card-sub-title{
+    font-size: 10px
+  }
+}
