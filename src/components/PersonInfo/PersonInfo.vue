@@ -80,8 +80,23 @@
           <MomentsCard></MomentsCard>
         </div>
       </div>
-      <div class="tab tab3" v-show="activeTab === 'photographs'">
-        <h1>未完待续....</h1>
+      <div class="tab tab3" v-show="activeTab === 'photographs'" ref="tab3Wrapper">
+        <div calss="photographs-wrapper">
+          <div class="photo-wall_cont" v-for="(photoWall, index) in photoWalls">
+            <div class="time-box">
+              <span class="photo-wall_time" v-cloak>{{photoWall.time | formatDate}}</span>
+            </div>
+            <div class="photo-box clearfix">
+              <div class="photo-wall_img" v-for="(photo, index) in photoWall.photos">
+                <mu-card-media>
+                  <div class="img-wrapper_triplet" :style="{backgroundImage: `url(${photo.url})`}">
+                  </div>
+                </mu-card-media>
+              </div>
+            </div>
+          </div>
+          <!-- <mu-infinite-scroll :scroller="scroller" :loading="loading" @load="loadMore"/> -->
+        </div>
       </div>
     </div>
   
@@ -110,6 +125,7 @@
 import { mapState, mapGetters, mapMutations } from 'vuex';
 import MomentsCard from 'components/MomentsCard/MomentsCard';
 import IScroll from 'iscroll';
+import {formatDate} from 'common/js/date';
 const ERROR_OK = 0;
 
 export default {
@@ -118,11 +134,19 @@ export default {
     return {
       initScroll: false,
       activeTab: 'presonInfo',
-      horzObj: {}           // 默认单张图片是水平默认80%显示 style默认为空
+      userData: {},            // 用户基本数据初始化
+      photoWalls: []           // 照片墙数据初始化
     }
   },
   created(){
-
+    // 判断当前页面id入口，没有的话就获取自己的数据，展示个人页面，有的话就展示当前活跃朋友的页面
+    if (this.activeId === 0) {
+      this.photoWalls = this.data.self.photowalls;
+      this.userData = this.data.self;
+    } else {
+      this.photoWalls = this.friend.photowalls;
+      this.userData = this.friend;
+    }
   },
   mounted() {
     // this.$http.get('/api/goods').then(res =>{
@@ -141,15 +165,7 @@ export default {
   },
   computed: {
     ...mapState(['activeId', 'data']),
-    // ...mapGetters(['friend']),
-    userData() {
-      // 判断是否有当前活跃的friend，没有的话就获取自己的数据，展示个人页面，有的话就展示当前活跃朋友的页面
-      if (this.activeId === 0) {
-        return this.data.self
-      } else {
-        return this.friend
-      }
-    }
+    // ...mapGetters(['friend'])
   },
   methods: {
     ...mapMutations(['GET_ACTIVEID', 'SHOW_PERSONINFO', 'SHOW_DIALOG']), 
@@ -157,15 +173,17 @@ export default {
       this.activeTab = val;
       // 判断是否初始化iscroll，否则就刷新
       this.$nextTick(() => {
-        if(!this.tab2Scroll) {
-          this.tab2Scroll = new IScroll(this.$refs.tab2Wrapper);
+        if(!this.tab2Scroll||!this.tab3Scroll) {
+          this._initScroll();
         }else{
           this.tab2Scroll.refresh();
+          this.tab3Scroll.refresh();
         }
       })
     }, 
     _initScroll() {
       this.tab2Scroll = new IScroll(this.$refs.tab2Wrapper);
+      this.tab3Scroll = new IScroll(this.$refs.tab3Wrapper);
     },
     _showPersonInfo() {
       this.GET_ACTIVEID({ activeId: 0 });
@@ -177,6 +195,12 @@ export default {
         this.SHOW_DIALOG();
         this.SHOW_PERSONINFO();
       }
+    }
+  },
+  filters: {
+    formatDate(time) {
+      let date = new Date(time);
+      return formatDate(date, 'yyyy / MM / dd');
     }
   },
   components: {
@@ -254,7 +278,7 @@ export default {
       margin-left: 20px;
     }
   }
-  .tab2{
+  .tab2, .tab3{
     position: absolute;
     top: pxrem(245px);
     right: 0;
@@ -262,10 +286,56 @@ export default {
     left: 0;
     overflow: hidden;
     background-color: #E8E8E8;
-    .moments-wrapper{
+  }
+  .tab3{background-color: #FFF;}
+  .moments-wrapper, .photographs-wrapper{
+    width: 100%;
+    position: absolute;
+    background-color: #E8E8E8;
+  }
+  .photo-wall_cont{
+    padding: 10px;
+    .time-box{
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    .photo-wall_time{
+      display: inline-block;
+      position: relative;
+      margin: 10px auto;
+      line-height: 18px;
+      font-size: 18px;
+      font-weight: 600;
+      color: #666;
+      &:before,&:after{
+        content:'';
+        position: absolute;
+        top: 9px;
+        width: 20px;
+        height: 1px;
+        background-color: #999;
+      }
+      &:before{
+        left: -28px;
+      }
+      &:after{
+        right: -28px;
+      }
+    }
+    .photo-box{
       width: 100%;
-      position: absolute;
-      background-color: #E8E8E8;
+    }
+    .photo-wall_img{
+      float: left;
+      width: 33%;
+      margin: 1px 1px 0 0;
+      background-color: #000;
+    }
+    .img-wrapper_triplet{
+      width: 100%;
+      padding-top: 100%;
+      background-position: center;
+      background-size: cover;
     }
   }
   .bottom {

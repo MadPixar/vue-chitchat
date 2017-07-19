@@ -18,7 +18,6 @@
           <div class="img-two" v-for="(photo, index) in moment.photos" 
                                v-if="moment.photos.length === 2||moment.photos.length === 4">
             <mu-card-media :title="photo.imgtitle" :subTitle="photo.imgsubtitle">
-              <!-- <img :src="photo.url" ref="imgOnepic" /> -->
               <div class="img-wrapper_double" :style="{backgroundImage: `url(${photo.url})`}">
               </div>
             </mu-card-media>
@@ -27,7 +26,6 @@
           <div class="img-three" v-for="(photo, index) in moment.photos" 
                                  v-if="moment.photos.length === 3||moment.photos.length === 5||moment.photos.length === 6">
             <mu-card-media :title="photo.imgtitle" :subTitle="photo.imgsubtitle">
-              <!-- <img :src="photo.url" ref="imgOnepic" /> -->
               <div class="img-wrapper_triplet" :style="{backgroundImage: `url(${photo.url})`}">
               </div>
             </mu-card-media>
@@ -58,36 +56,21 @@ export default {
     return {
       initScroll: false,
       activeTab: 'presonInfo',
-      imgSH: 0,             // 初始化单张图片高度
+      imgSH: 0,              // 初始化单张图片高度
       horzObj: {},           // 默认单张图片是水平默认80%显示 style默认为空
       moments: []            // 初始化动态
     }
   },
   created() {
+    // 判断是否有当前活跃的friend，没有的话就获取自己的数据，展示个人页面，有的话就展示当前活跃朋友的页面
     if (this.activeId === 0) {
       this.moments = this.data.self.moments;
-      return this.data.self;
     } else {
       this.moments = this.friend.moments;
-      return this.friend;
     }
   },
   mounted() {
-    // this.$http.get('/api/goods').then(res =>{
-    //   return res.json();
-    // }).then(json => {
-    //   if(json.errno === ERROR_OK) {
-    //     // this.goods = json.data;
-    //     // console.log(this.goods) 
-    //     this.$nextTick(() => {
-    //       this._initScroll();
-    //       this._calculateHeight();
-    //     })
-    //   }
-    // })
-        // this.$nextTick(() => {
-        //   this._initScroll();
-        // })
+
     // 当图片的高度比宽度大时 要适当对图片进行比例缩放
     let imgObj = this.$refs.imgOnepic;
 
@@ -115,16 +98,6 @@ export default {
   computed: {
     ...mapState(['activeId', 'data']),
     // ...mapGetters(['friend']),
-    userData() {
-      // 判断是否有当前活跃的friend，没有的话就获取自己的数据，展示个人页面，有的话就展示当前活跃朋友的页面
-      if (this.activeId === 0) {
-        this.moments = this.data.self.moments;
-        return this.data.self;
-      } else {
-        this.moments = this.friend.moments;
-        return this.friend;
-      }
-    }
   },
   methods: {
     ...mapMutations(['GET_ACTIVEID', 'SHOW_PERSONINFO', 'SHOW_DIALOG']), 

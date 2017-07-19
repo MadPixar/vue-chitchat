@@ -45,7 +45,7 @@
       handleChange(val) {
         let text,num;
         this.activeTab = val;
-        console.log()
+
         // 路由跳转至当前点击的页面，这里用replace是因为用push的话，回退的时候状态不会切换
         this.$router.replace(val);
         // 改变title
